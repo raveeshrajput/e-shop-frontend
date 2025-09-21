@@ -1,0 +1,27 @@
+<div class="card text-center shadow-sm h-100">
+    <img [src]="product.images" class="card-img-top img-fluid" style="height: 200px; object-fit: cover;" alt="Product Image" [routerLink]="'/product/'+product._id">
+    <div class="card-body d-flex flex-column">
+        <div [routerLink]="'/product/'+product._id">
+            <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text text-muted">{{ product.shortDescription }}</p>
+        <div class="d-flex justify-content-between">
+            <span class="text-danger fw-bold fs-6"><s>{{product.price}}₹</s></span>
+            <span class="text-warning fw-bold">{{product.discount}}% OFF</span>
+            <span class="text-success fw-bold fs-6">{{sellingPrice}}₹</span>
+        </div>
+        </div>
+        
+        <button mat-fab color="primary" (click)="addToWishList(product)">
+            @if(isInWishlist(product)){
+                <mat-icon>favorite</mat-icon>
+            } @else {
+                <mat-icon>favorite_border</mat-icon>
+            }
+            
+        </button>
+        <button mat-fab color="primary">
+                <mat-icon>add_shopping_cart</mat-icon>
+                <mat-icon>remove_shopping_cart</mat-icon>
+        </button>
+    </div>
+</div>

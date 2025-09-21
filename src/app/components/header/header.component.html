@@ -1,0 +1,49 @@
+<header class="site-header">
+    <!-- Top Bar: Logo, Search, Profile -->
+    <div class="top-bar">
+        <div class="logo" routerLink="/"><span>E-Shop</span></div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search products..." [(ngModel)]="searchTerm" (keyup.enter)="onSearch($event)">
+            <button>🔍</button>
+        </div>
+        <div class="profile d-flex align-items-center">
+            @if (authService.isAdmin){
+                <a routerLink="/admin">{{authService.userName}}</a>
+            } @else {
+                <a routerLink="/profile">{{authService.userName}}</a>
+            }
+            @if (authService.isLoggedIn){
+                <a routerLink="/wishlists"><mat-icon class="text-danger mx-2">favorite</mat-icon></a>
+                <a routerLink="/cart"><mat-icon class="text-light mx-1">shopping_cart</mat-icon></a>
+                <a (click)="logout()" style="
+                position: relative;
+                left: 5px;
+                cursor: pointer;
+            ">Logout</a>
+            } @else {
+                <a routerLink="/login" style="
+                position: relative;
+                left: 5px;
+                cursor: pointer;
+            ">LogIn</a>
+            <a routerLink="/register" style="
+            position: relative;
+            left: 10px;
+            cursor: pointer;
+        ">Register</a>
+            }
+           
+        </div>
+    </div>
+    
+    <!-- Second Bar: Categories Menu -->
+     @if(authService.isLoggedIn){
+        <nav class="category-menu">
+            <ul>
+                @for (category of categoryList; track $index) {
+                    <li (click)="searchCategory(category._id!)" style="cursor: pointer"><a>{{category.name}}</a></li>
+                }
+            </ul>
+        </nav>
+     }
+</header>

@@ -1,0 +1,100 @@
+<div class="wrapper">
+  <div class="container mt-5 d-flex flex-column align-items-center">
+    <h1 class="mb-4">Add New Product</h1>
+  
+    <form class="shadow p-4 bg-white rounded w-100" style="max-width: 600px;" [formGroup]="productForm">
+      <div class="row">
+  
+        <mat-form-field class="w-100">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="categoryId">
+            @for (item of categories; track $index) {
+              <mat-option [value]="item._id">{{item.name}}</mat-option>   
+            }        
+  
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Brand</mat-label>
+          <mat-select formControlName="brandId" >
+            @for (item of brands; track $index) {
+              <mat-option [value]="item._id">{{item.name}}</mat-option>   
+            } 
+  
+          </mat-select>
+        </mat-form-field>
+        
+  
+        <!-- Name -->
+        <div class="col-12 mb-3">
+          <label class="form-label">Name</label>
+          <mat-form-field class="form-control">
+            <input matInput type="text" class="form-control" formControlName="name" />
+          </mat-form-field>
+        </div>
+  
+        <!-- Short Description -->
+        <div class="col-12 mb-3">
+          <label class="form-label">Short Description</label>
+          <mat-form-field class="form-control">
+            <input matInput type="text" class="form-control" formControlName="shortDescription" />
+          </mat-form-field>
+        </div>
+  
+        <!-- Description -->
+        <div class="col-12 mb-3">
+          <label class="form-label">Description</label>
+          <mat-form-field class="form-control">
+            <textarea matInput rows="4" class="form-control" formControlName="description"></textarea>
+          </mat-form-field>
+        </div>
+  
+        <!-- Price -->
+        <div class="col-12 mb-3">
+          <label class="form-label">Price</label>
+          <mat-form-field class="form-control">
+            <input matInput type="number" class="form-control" formControlName="price" />
+          </mat-form-field>
+        </div>
+  
+        <!-- Discount -->
+        <div class="col-12 mb-3">
+          <label class="form-label">Discount</label>
+          <mat-form-field class="form-control">
+            <input matInput type="number" class="form-control" formControlName="discount" />
+          </mat-form-field>
+        </div>
+  
+        <div class="w-100 d-flex g-8">
+          <mat-checkbox formControlName="isFeatured">isFeatured</mat-checkbox>
+          <mat-checkbox formControlName="isNewProduct">isNewProduct</mat-checkbox>
+        </div>
+   
+        <!-- Images -->
+        <div class="col-12 mb-3" formArrayName="images">
+          <div class="d-flex justify-content-between">
+            <h4 class="mb-2">Images</h4>
+            <button mat-raised-button color="primary" (click)="addImage()">Add Image</button>
+            <button mat-raised-button color="primary" (click)="removeImage()">Remove Image</button>
+          </div>
+          @for (item of images.controls; track $index){
+          <mat-form-field class="form-control">
+            <mat-label>Images{{$index +1}}</mat-label>
+            <input matInput type="text" class="form-control" [formControlName]="$index"  />
+          </mat-form-field>
+          }
+          
+        </div>
+  
+        <!-- Submit Button -->
+        <div class="col-12 text-center mt-3">
+          <button mat-raised-button color="primary" [disabled]="productForm.invalid" class="btn btn-primary w-100" (click)="addProduct()">
+            Add
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  
+</div>

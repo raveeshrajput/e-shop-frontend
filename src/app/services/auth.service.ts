@@ -10,7 +10,7 @@ export class AuthService {
   constructor() { }
   http=inject(HttpClient);
   register(name: string, email: string, password: string){
-    return this.http.post(environment.apiUrl + "/auth/register",{
+    return this.http.post(`${environment.apiUrl}/auth/register`,{
       name,
       email,
       password,

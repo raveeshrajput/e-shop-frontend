@@ -20,16 +20,32 @@ export class WishlistService {
   }
 
   getWishlists(){
-    return this.http.get<Product[]>(environment.apiUrl + '/customer/wishlists')
+    const token = localStorage.getItem('token');
+    return this.http.get<Product[]>(environment.apiUrl + '/customer/wishlists', {
+    headers: {
+      Authorization: token ? token : ''
+    }
+  })
   }
 
   addInWishlists(productId: string){
+    const token = localStorage.getItem('token');
     return this.http.post(environment.apiUrl + '/customer/wishlists/'+ productId, 
-      {}
+      {},
+      {
+      headers: {
+        Authorization: token ? token : ''
+      }
+    }
     );
   }
 
   removeFromWishlists(productId: string){
-    return this.http.delete(environment.apiUrl + '/customer/wishlists/'+ productId);
+    const token = localStorage.getItem('token');
+    return this.http.delete(environment.apiUrl + '/customer/wishlists/'+ productId, {
+    headers: {
+      Authorization: token ? token : ''
+    }
+  });
   }
 }
